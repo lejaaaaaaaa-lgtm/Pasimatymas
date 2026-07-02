@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="lt">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💖 Turiu klausimą...</title>
+
+<style>
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:Arial,sans-serif;
+
+}
+
+body{
+
+    overflow:hidden;
+
+    background:linear-gradient(135deg,#ffd6e7,#ffeef5);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
+}
+
+.container{
+
+    text-align:center;
+
+}
+
+h1{
+
+    color:#ff2d75;
+
+    margin-bottom:20px;
+
+    font-size:42px;
+
+}
+
+.cat{
+
+    font-size:90px;
+
+    transition:.3s;
+
+}
+
+.text{
+
+    margin:15px;
+
+    font-size:22px;
+
+    color:#555;
+
+}
+
+.buttons{
+
+    position:relative;
+
+    width:500px;
+
+    height:220px;
+
+    margin:auto;
+
+}
+
+button{
+
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:15px;
+
+    font-size:24px;
+
+    transition:.25s;
+
+}
+
+#yes{
+
+    background:#ff4d88;
+
+    color:white;
+
+    padding:18px 45px;
+
+}
+
+#no{
+
+    background:#ddd;
+
+    padding:18px 45px;
+
+    position:absolute;
+
+    left:300px;
+
+    top:0;
+
+}
+
+#message{
+
+    display:none;
+
+    font-size:40px;
+
+    color:#ff2d75;
+
+    margin-top:25px;
+
+    animation:pop .5s;
+
+}
+
+@keyframes pop{
+
+from{transform:scale(.5);}
+
+to{transform:scale(1);}
+
+}
+
+.confetti{
+
+    position:fixed;
+
+    font-size:25px;
+
+    animation:fall 3s linear forwards;
+
+}
+
+@keyframes fall{
+
+0%{
+
+transform:translateY(-100px) rotate(0);
+
+}
+
+100%{
+
+transform:translateY(110vh) rotate(720deg);
+
+opacity:0;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💖 Ar eisi su manim į pasimatymą? 💖</h1>
+
+<div id="cat" class="cat">😺</div>
+
+<div id="catText" class="text">
+
+Labai tikiuosi, kad pasakysi „Taip“. ❤️
+
+</div>
+
+<div class="buttons">
+
+<button id="yes">TAIP ❤️</button>
+
+<button id="no">NE 🙈</button>
+
+</div>
+
+<div id="message">
+
+🎉 Valioooo!! ❤️<br>
+
+Labai tavęs lauksiu! 🥰
+
+</div>
+
+</div>
+
+<script>
+
+const no=document.getElementById("no");
+
+const yes=document.getElementById("yes");
+
+const cat=document.getElementById("cat");
+
+const catText=document.getElementById("catText");
+
+const cats=[
+
+"😿",
+
+"😿",
+
+"🥺",
+
+"😭",
+
+"🙀",
+
+"💔😿"
+
+];
+
+const texts=[
+
+"O ne... 😢",
+
+"Tikrai nenori? 🥺",
+
+"Prašau... 😿",
+
+"Dar pagalvok... 💔",
+
+"Aš liūdžiu... 😭",
+
+"Na gerai... 😭💔"
+
+];
+
+let attempts=0;
+
+let yesSize=1;
+
+function moveButton(){
+
+const maxX=window.innerWidth-160;
+
+const maxY=window.innerHeight-90;
+
+no.style.left=Math.random()*maxX+"px";
+
+no.style.top=Math.random()*maxY+"px";
+
+no.style.position="fixed";
+
+yesSize+=0.15;
+
+yes.style.transform=`scale(${yesSize})`;
+
+if(attempts<cats.length){
+
+cat.textContent=cats[attempts];
+
+catText.textContent=texts[attempts];
+
+}
+
+attempts++;
+
+}
+
+no.addEventListener("mouseover",moveButton);
+
+no.addEventListener("click",moveButton);
+
+yes.onclick=()=>{
+
+document.querySelector(".buttons").style.display="none";
+
+cat.style.display="none";
+
+catText.style.display="none";
+
+document.getElementById("message").style.display="block";
+
+for(let i=0;i<180;i++){
+
+let c=document.createElement("div");
+
+c.className="confetti";
+
+c.textContent=["🎉","💖","✨","❤️","🥰"][Math.floor(Math.random()*5)];
+
+c.style.left=Math.random()*100+"vw";
+
+c.style.animationDelay=Math.random()*2+"s";
+
+document.body.appendChild(c);
+
+setTimeout(()=>c.remove(),3000);
+
+}
+
+};
+
+</script>
+
+</body>
+
+</html>
